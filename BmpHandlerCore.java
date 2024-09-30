@@ -1,5 +1,5 @@
 //Parte I - Claudia
-
+//Librerías importadas.
 import java.io.*;
 import java.lang.Math;
 
@@ -105,7 +105,7 @@ public class BmpHandlerCore {
     public void BlueImage(String archivo) throws Exception {
         writeBmp(archivo, new int[this.alto][this.ancho], new int[this.alto][this.ancho], this.Azul);
     }
-    
+
     public void SepiaImage(String archivo) throws Exception{
         writeSepiaImage(archivo);
     }
