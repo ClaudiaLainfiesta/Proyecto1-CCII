@@ -2,9 +2,9 @@
 //Librerías importadas.
 import java.io.*;
 import java.lang.Math;
-
+//Clase principal para tonos de la imagen.
 public class BmpHandlerCore {
-    // Campos a inicializar en el constructor.
+    //Campos a inicializar en el constructor.
     private int ancho;
     private int alto;
     private byte[] header = new byte[54];
@@ -15,7 +15,7 @@ public class BmpHandlerCore {
     private int[][] sepiaGreen;
     private int[][] sepiaBlue;
 
-    // Constructor de la clase.
+    //Constructor de la clase.
     public BmpHandlerCore(String archivo) throws Exception {
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(archivo));
         bis.read(header);
@@ -30,7 +30,7 @@ public class BmpHandlerCore {
         readBmp(bis);
     }
 
-    // Lectura de los pixeles.
+    //Lectura de los pixeles.
     private void readBmp(BufferedInputStream archivo) throws Exception {
         for (int i = alto - 1; i >= 0; i--) {
             for (int j = 0; j < ancho; j++) {
@@ -45,7 +45,7 @@ public class BmpHandlerCore {
         }
     }
 
-    // Métodos para leer datos de la imagen bmp.
+    //Métodos para leer datos de la imagen bmp.
     private int readAncho() {
         return getInt(header, 18);
     }
@@ -61,7 +61,7 @@ public class BmpHandlerCore {
                 ((data[offset + 3] & 0xFF) << 24);
     }
 
-    // Creación de imagen bmp.
+    //Creación de imagen bmp.
     private void writeBmp(String archivo, int[][] red, int[][] green, int[][] blue) throws Exception {
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(archivo));
         bos.write(header);
@@ -93,7 +93,7 @@ public class BmpHandlerCore {
         writeBmp(archivo, sepiaRed, sepiaGreen, sepiaBlue);
     }
 
-    // Descarga de imágenes según el color.
+    //Descarga de imágenes según el color.
     public void RedImage(String archivo) throws Exception {
         writeBmp(archivo, this.Rojo, new int[this.alto][this.ancho], new int[this.alto][this.ancho]);
     }
