@@ -1,6 +1,11 @@
 //Parte II - Adriel.
 public class BmpHandlerRotator {
 
+
+
+    //1+1:2
+    
+
     // Hola, prueba de git 
     
     //print("hellor word");
