@@ -14,9 +14,10 @@ public class BMPImageHandler {
                 handlerCore.SepiaImage(nuevoNombre + "-sepia.bmp");
                 System.out.println("Imágenes generadas correctamente.");
             } else if (comando.equals("-rotate")) {
-                //BmpHandlerRotator handlerTotator = new BmpHandlerRotator(archivo);
+                BmpHandlerRotator handlerTotator = new BmpHandlerRotator(archivo);
                 String nuevoNombre = archivo.replace(".bmp", "");
-                System.out.println("En construcción aún :D");
+                handlerTotator.rotate180AndSave(nuevoNombre + "-rotator.bmp");
+                System.out.println("Generado");
             } else if (comando.equals("-resize")) {
                 //BmpHandlerResizer handlerResizer = new BmpHandlerResizer(archivo);
                 String nuevoNombre = archivo.replace(".bmp", "");
@@ -28,7 +29,8 @@ public class BMPImageHandler {
                 handlerCore.GreenImage(nuevoNombre + "-green.bmp");
                 handlerCore.BlueImage(nuevoNombre + "-blue.bmp");
                 handlerCore.SepiaImage(nuevoNombre + "-sepia.bmp");
-                //BmpHandlerRotator handlerRotator = new BmpHandlerRotator(archivo);
+                BmpHandlerRotator handlerRotator = new BmpHandlerRotator(archivo);
+                handlerRotator.rotate180AndSave(nuevoNombre + "-vrotation.bmp");
                 //BmpHandlerResizer handlerResizer = new BmpHandlerResizer(archivo);
                 System.out.println("En media construcción aún :D");
             } else {

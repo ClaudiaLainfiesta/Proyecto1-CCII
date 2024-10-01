@@ -69,4 +69,6 @@ public class BmpHandlerRotator {
         }
         bos.close(); // Cerrar el archivo de salida.
     }
+    //---------------------------
+
 }
