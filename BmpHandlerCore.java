@@ -14,6 +14,7 @@ public class BmpHandlerCore {
     private int[][] sepiaRed;
     private int[][] sepiaGreen;
     private int[][] sepiaBlue;
+    private int[][] gray;
 
     //Constructor de la clase.
     public BmpHandlerCore(String archivo) throws Exception {
@@ -27,6 +28,7 @@ public class BmpHandlerCore {
         this.sepiaRed = new int[this.alto][this.ancho];
         this.sepiaGreen = new int[this.alto][this.ancho];
         this.sepiaBlue = new int[this.alto][this.ancho];
+        this.gray = new int[this.alto][this.ancho];
         readBmp(bis);
     }
 
@@ -108,5 +110,27 @@ public class BmpHandlerCore {
 
     public void SepiaImage(String archivo) throws Exception{
         writeSepiaImage(archivo);
+    }
+
+    //---------------------------------
+    public void writeGrayImage(String archivo) throws Exception {
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(archivo));
+        bos.write(header);
+        for (int i = this.alto - 1; i >= 0; i--) {
+            for (int j = 0; j < this.ancho; j++) {
+                int red = this.Rojo[i][j];
+                int green = this.Verde[i][j];
+                int blue = this.Azul[i][j];
+                int gray = Math.min((int) (0.3 * red + 0.59 * green + 0.11 * blue), 255);
+                bos.write(gray);
+                bos.write(gray);
+                bos.write(gray);
+            }
+        }
+        bos.write(0);
+        bos.write(0);
+    }
+    public void GrayImage(String archivo) throws Exception {
+        writeGrayImage(archivo);
     }
 }

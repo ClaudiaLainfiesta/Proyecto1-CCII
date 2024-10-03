@@ -33,6 +33,10 @@ public class BMPImageHandler {
                 handlerRotator.rotate180AndSave(nuevoNombre + "-vrotation.bmp");
                 //BmpHandlerResizer handlerResizer = new BmpHandlerResizer(archivo);
                 System.out.println("En media construcción aún :D");
+            }else if (comando.equals("-gray")) {
+                BmpHandlerCore handlergray = new BmpHandlerCore(archivo);
+                String nuevoNombre = archivo.replace(".bmp", "");
+                handlergray.GrayImage(nuevoNombre + "-gray.bmp");
             } else {
                 System.out.println("Comando no válido. Use -help para más información.");
             }
@@ -44,6 +48,8 @@ public class BMPImageHandler {
                 System.out.println("-resize: Genera imágenes minimizadas en un 50% de su ancho y alto.");
                 System.out.println("-all: Genera todas las imágenes anteriores.");
                 System.out.println("-help: Muestra la lista de comandos disponibles.");
+                System.out.println("Extra:");
+                System.out.println("-gray: Genera imágenes en escala de grises.");
             } else {
                 System.out.println("Comando no válido. Use -help para más información.");
             }
