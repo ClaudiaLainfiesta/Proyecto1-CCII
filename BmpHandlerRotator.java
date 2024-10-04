@@ -70,23 +70,6 @@ public class BmpHandlerRotator {
         bos.close(); // Cerrar el archivo de salida.
     }
 
-    // Método (1) Rotar 180 grados sobre la línea horizontal (invertir filas)
-    public void rotateHorizontalAndSave(String archivoSalida) throws Exception {
-        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(archivoSalida));
-        bos.write(header); // Escribir el encabezado BMP.
-
-        // Recorre la imagen de abajo hacia arriba (eje X invertido).
-        for (int i = alto - 1; i >= 0; i--) {
-            for (int j = 0; j < ancho; j++) {
-                bos.write(Azul[i][j]);
-                bos.write(Verde[i][j]);
-                bos.write(Rojo[i][j]);
-            }
-        }
-
-        bos.close(); // Cerrar el archivo de salida.
-    }
-
     // Método (2) Rotar 180 grados sobre el eje vertical (invertir columnas)
     public void rotateVerticalAndSave(String archivoSalida) throws Exception {
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(archivoSalida));
