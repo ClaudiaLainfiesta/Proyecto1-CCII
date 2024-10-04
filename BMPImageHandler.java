@@ -28,8 +28,8 @@ public class BMPImageHandler {
                 // Crea objeto en BmpHandlerRotator.
                 BmpHandlerRotator handlerRotator = new BmpHandlerRotator(archivo);
                 // Manda a llamar los métodos para crear las imágenes correspondientes.
-                handlerRotator.rotate180AndSave(nuevoNombre + "-rotator.bmp");
-                handlerRotator.rotateHorizontalAndSave(nuevoNombre + "-hrotation.bmp");  // Rotación en eje horizontal
+                handlerRotator.rotate180AndSave(nuevoNombre + "-hrotation.bmp");
+                //handlerRotator.rotateHorizontalAndSave(nuevoNombre + "-hrotation.bmp");  // Rotación en eje horizontal
                 handlerRotator.rotateVerticalAndSave(nuevoNombre + "-vrotation.bmp");    // Rotación en eje vertical
                 // Mensaje en terminal.
                 System.out.println("Imágenes rotadas generadas correctamente.");
