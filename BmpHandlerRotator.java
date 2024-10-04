@@ -1,7 +1,3 @@
-//Proyecto No. 1 - Grupo No.   | Parte II.
-//Adriel Levi Argueta Caal | 24003171 - BN.
-//Maria Claudia Lainfiesta Herrera | 24000149 - BN.
-
 import java.io.*;
 
 public class BmpHandlerRotator {
@@ -58,7 +54,7 @@ public class BmpHandlerRotator {
                ((data[offset + 3] & 0xFF) << 24);
     }
 
-    // Método para escribir la imagen con un giro de 180 grados.
+    // Método para escribir la imagen con un giro de 180 grados (ambos ejes).
     public void rotate180AndSave(String archivoSalida) throws Exception {
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(archivoSalida));
         bos.write(header); // Escribir el encabezado BMP.
@@ -73,6 +69,39 @@ public class BmpHandlerRotator {
         }
         bos.close(); // Cerrar el archivo de salida.
     }
-    //---------------------------
+
+    // Método (1) Rotar 180 grados sobre la línea horizontal (invertir filas)
+    public void rotateHorizontalAndSave(String archivoSalida) throws Exception {
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(archivoSalida));
+        bos.write(header); // Escribir el encabezado BMP.
+
+        // Recorre la imagen de abajo hacia arriba (eje X invertido).
+        for (int i = alto - 1; i >= 0; i--) {
+            for (int j = 0; j < ancho; j++) {
+                bos.write(Azul[i][j]);
+                bos.write(Verde[i][j]);
+                bos.write(Rojo[i][j]);
+            }
+        }
+
+        bos.close(); // Cerrar el archivo de salida.
+    }
+
+    // Método (2) Rotar 180 grados sobre el eje vertical (invertir columnas)
+    public void rotateVerticalAndSave(String archivoSalida) throws Exception {
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(archivoSalida));
+        bos.write(header); // Escribir el encabezado BMP.
+
+        // Recorre las filas, pero invierte las columnas (espejo en el eje Y).
+        for (int i = 0; i < alto; i++) {
+            for (int j = ancho - 1; j >= 0; j--) {
+                bos.write(Azul[i][j]);
+                bos.write(Verde[i][j]);
+                bos.write(Rojo[i][j]);
+            }
+        }
+
+        bos.close(); // Cerrar el archivo de salida.
+    }
 
 }
