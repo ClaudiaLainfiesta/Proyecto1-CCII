@@ -54,7 +54,6 @@ public class BMPImageHandler {
                 handlerCore.SepiaImage(nuevoNombre + "-sepia.bmp");
 
                 handlerRotator.rotate180AndSave(nuevoNombre + "-rotator.bmp");
-                handlerRotator.rotateHorizontalAndSave(nuevoNombre + "-hrotation.bmp");
                 handlerRotator.rotateVerticalAndSave(nuevoNombre + "-vrotation.bmp");
                 // handlerResizer.
 
