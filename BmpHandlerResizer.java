@@ -17,7 +17,7 @@ public class BmpHandlerResizer {
     //constructor de la clase 
     public BmpHandlerResizer(String archivo) throws Exception{
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(archivo));
-        bis.head(header);
+        bis.read(header);
         this.ancho = readAncho();
         this.alto = readAlto();
         this.Rojo = new int[this.alto][this.ancho];
@@ -38,19 +38,19 @@ public class BmpHandlerResizer {
                 Azul[i][j] = blue;
                 Verde[i][j]= green;
                 Rojo[i][j]= red;
-
             }
         }
     }
-    //Metodo para reducir el ancho xd
-    public void reducirAncho(){
+
+    // Método para reducir el ancho de la imagen al 50%
+    public void reducirAncho() {
         int nuevoAncho = ancho / 2;
         int[][] nuevoRojo = new int[alto][nuevoAncho];
         int[][] nuevoVerde = new int[alto][nuevoAncho];
         int[][] nuevoAzul = new int[alto][nuevoAncho];
 
-        for(int i = 0; i<alto; i++){
-            for(int j = 0; j<ancho; j++){
+        for (int i = 0; i < alto; i++) {
+            for (int j = 0; j < nuevoAncho; j++) {
                 nuevoRojo[i][j] = Rojo[i][j * 2];
                 nuevoVerde[i][j] = Verde[i][j * 2];
                 nuevoAzul[i][j] = Azul[i][j * 2];
@@ -63,25 +63,24 @@ public class BmpHandlerResizer {
         this.Azul = nuevoAzul;
     }
 
-    //metodo para reducir el alto xd 
-    public void reducirAlto(){
-        int nuevoAlto = alto /2;
-        int[][] nuevoRojo = new int[alto][nuevoAlto];
-        int[][] nuevoVerde = new int[alto][nuevoAlto];
-        int[][] nuevoAzul = new int[alto][nuevoAlto];
+    // Método para reducir el alto de la imagen al 50%
+    public void reducirAlto() {
+        int nuevoAlto = alto / 2;
+        int[][] nuevoRojo = new int[nuevoAlto][ancho];
+        int[][] nuevoVerde = new int[nuevoAlto][ancho];
+        int[][] nuevoAzul = new int[nuevoAlto][ancho];
 
-        for(int i = 0; i < nuevoAlto; i++){
-            for(int j = 0; j < ancho; i++){
+        for (int i = 0; i < nuevoAlto; i++) {
+            for (int j = 0; j < ancho; j++) {
                 nuevoRojo[i][j] = Rojo[i * 2][j];
                 nuevoVerde[i][j] = Verde[i * 2][j];
-                nuevoAzul[i][j] = Azul [i * 2][j];
+                nuevoAzul[i][j] = Azul[i * 2][j];
             }
         }
 
         this.alto = nuevoAlto;
         this.Rojo = nuevoRojo;
-        this.Azul = nuevoAzul;
         this.Verde = nuevoVerde;
+        this.Azul = nuevoAzul;
     }
-
 }
