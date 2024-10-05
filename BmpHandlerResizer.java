@@ -6,7 +6,7 @@ import java.io.*;
 
 public class BmpHandlerResizer {
 
-    //campos a inicializar el constructor 
+    //campos a inicializar el constructor
     private int ancho;
     private int alto;
     private byte[] header = new byte[54];
@@ -14,7 +14,7 @@ public class BmpHandlerResizer {
     private int[][] Verde;
     private int[][] Azul;
 
-    //constructor de la clase 
+    //constructor de la clase
     public BmpHandlerResizer(String archivo) throws Exception{
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(archivo));
         bis.read(header);
@@ -24,10 +24,25 @@ public class BmpHandlerResizer {
         this.Verde = new int[this.alto][this.ancho];
         this.Azul = new int[this.alto][this.ancho];
         readBmp(bis);
-        bis.close(); // cerramos el archivo  
+        bis.close(); // cerramos el archivo
+    }
+    // Lectura del ancho de la imagen desde el encabezado.
+    private int readAncho() {
+        return getInt(header, 18);
     }
 
-    //lecutra de la imagen 
+    // Lectura del alto de la imagen desde el encabezado.
+    private int readAlto() {
+        return getInt(header, 22);
+    }
+
+    private static int getInt(byte[] data, int offset) {
+        return (data[offset + 0] & 0xFF) |
+               ((data[offset + 1] & 0xFF) << 8) |
+               ((data[offset + 2] & 0xFF) << 16) |
+               ((data[offset + 3] & 0xFF) << 24);
+    }
+    //lecutra de la imagen
     private void readBmp(BufferedInputStream archivo) throws Exception{
         for(int i = alto -1; i >= 0 ; i--){
             for(int j = 0; j < ancho; j++){
