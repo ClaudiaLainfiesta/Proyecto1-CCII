@@ -2,6 +2,9 @@
 //Adriel Levi Argueta Caal | 24003171 - BN.
 //Maria Claudia Lainfiesta Herrera | 24000149 - BN.
 
+//librerias importadas para el proyecto.
+
+
 import java.io.*;
 
 public class BmpHandlerResizer {
