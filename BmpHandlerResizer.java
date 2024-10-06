@@ -4,18 +4,17 @@
 
 //librerias importadas para el proyecto.
 
-
 import java.io.*;
 
 public class BmpHandlerResizer {
 
     //Campos a inicializar el constructor.
-    private int ancho;
-    private int alto;
-    private byte[] header = new byte[54];
-    private int[][] Rojo;
-    private int[][] Verde;
-    private int[][] Azul;
+    protected int ancho;
+    protected int alto;
+    protected byte[] header = new byte[54];
+    protected int[][] Rojo;
+    protected int[][] Verde;
+    protected int[][] Azul;
 
     //Constructor de la clase.
     public BmpHandlerResizer(String archivo) throws Exception {
@@ -31,16 +30,16 @@ public class BmpHandlerResizer {
     }
 
     //Lectura del ancho de la imagen desde el encabezado.
-    private int readAncho() {
+    protected int readAncho() {
         return getInt(header, 18);
     }
 
     //Lectura del alto de la imagen desde el encabezado.
-    private int readAlto() {
+    protected int readAlto() {
         return getInt(header, 22);
     }
 
-    private static int getInt(byte[] data, int offset) {
+    protected static int getInt(byte[] data, int offset) {
         return (data[offset + 0] & 0xFF) |
                 ((data[offset + 1] & 0xFF) << 8) |
                 ((data[offset + 2] & 0xFF) << 16) |
@@ -48,7 +47,7 @@ public class BmpHandlerResizer {
     }
 
     //Lectura de la imagen.
-    private void readBmp(BufferedInputStream archivo) throws Exception {
+    protected void readBmp(BufferedInputStream archivo) throws Exception {
         for (int i = 0; i < alto; i++) {
             for (int j = 0; j < ancho; j++) {
                 int blue = archivo.read() & 0xFF;
@@ -162,7 +161,7 @@ public class BmpHandlerResizer {
     }
 
     //Método auxiliar para escribir enteros en el header BMP.
-    private void escribirInt(byte[] header, int valor, int offset) {
+    protected void escribirInt(byte[] header, int valor, int offset) {
         header[offset] = (byte) (valor & 0xFF);
         header[offset + 1] = (byte) ((valor >> 8) & 0xFF);
         header[offset + 2] = (byte) ((valor >> 16) & 0xFF);

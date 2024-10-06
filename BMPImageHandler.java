@@ -67,7 +67,12 @@ public class BMPImageHandler {
                     handlergray.GrayImage(nuevoNombre + "-gray.bmp");
                     //Mensaje en terminal.
                     System.out.println("Imagen generada correctamente.");
-                } else {
+                }else if(comando.equals("-Resicerinvertido")){
+                    BmpHandlerResizerInvertido prueba = new BmpHandlerResizerInvertido(archivo);
+                    prueba.reducirAlto(archivo);
+                    prueba.reducirAlto(archivo);
+                } 
+                else {
                     System.out.println("Comando no válido. Utilice -help para más información.");
                 }
             } else if (bandera.equals("-") && args.length == 1) {
