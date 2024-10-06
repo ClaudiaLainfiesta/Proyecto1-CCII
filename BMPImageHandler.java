@@ -29,21 +29,20 @@ public class BMPImageHandler {
                     // Crea objeto en BmpHandlerRotator.
                     BmpHandlerRotator handlerRotator = new BmpHandlerRotator(archivo);
                     // Manda a llamar los métodos para crear las imágenes correspondientes.
-                    handlerRotator.rotate180AndSave(nuevoNombre + "-hrotation.bmp");
-                    // handlerRotator.rotateHorizontalAndSave(nuevoNombre + "-hrotation.bmp"); //
                     // Rotación en eje horizontal
-                    handlerRotator.rotateVerticalAndSave(nuevoNombre + "-vrotation.bmp"); // Rotación en eje vertical
+                    handlerRotator.rotate180AndSave(nuevoNombre + "-hrotation.bmp");
+                    // Rotación en eje vertical
+                    handlerRotator.rotateVerticalAndSave(nuevoNombre + "-vrotation.bmp");
                     // Mensaje en terminal.
                     System.out.println("Imágenes rotadas generadas correctamente.");
                 } else if (comando.equals("-resize")) {
                     // Crea objeto en BmpHandlerResizer.
-                    // BmpHandlerResizer handlerResizer = new BmpHandlerResizer(archivo);
+                    BmpHandlerResizer handlerResizer = new BmpHandlerResizer(archivo);
                     // Manda a llamar los métodos para crear las imágenes correspondientes.
-                    //
-                    //
+                    handlerResizer.reducirAlto(nuevoNombre + "-flat.bmp");
+                    handlerResizer.reducirAncho(nuevoNombre + "-thin.bmp");
                     // Mensaje en terminal.
-                    // System.out.println("Imagen generada correctamente.");
-                    System.out.println("En construcción aún :D");
+                    System.out.println("Imagen generada correctamente.");
                 } else if (comando.equals("-all")) {
                     // Crea objetos en BmpHandlerCore, BmpHandlerRotator y BmpHandlerResizer.
                     BmpHandlerCore handlerCore = new BmpHandlerCore(archivo);
@@ -59,8 +58,7 @@ public class BMPImageHandler {
                     handlerRotator.rotateVerticalAndSave(nuevoNombre + "-vrotation.bmp");
                     // handlerResizer.
 
-                    // System.out.println("Imágenes generadas correctamente.");
-                    System.out.println("En media construcción aún :D");
+                    System.out.println("Imágenes generadas correctamente.");
                 } else if (comando.equals("-gray")) {
                     // Crea objeto en BmpHandlerCore.
                     BmpHandlerCore handlergray = new BmpHandlerCore(archivo);

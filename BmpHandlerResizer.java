@@ -57,45 +57,106 @@ public class BmpHandlerResizer {
         }
     }
 
-    // Método para reducir el ancho de la imagen al 50%
-    public void reducirAncho() {
-        int nuevoAncho = ancho / 2;
-        int[][] nuevoRojo = new int[alto][nuevoAncho];
-        int[][] nuevoVerde = new int[alto][nuevoAncho];
-        int[][] nuevoAzul = new int[alto][nuevoAncho];
+// Método para reducir el ancho de la imagen al 50% y guardar en archivo de salida
+public void reducirAncho(String archivoSalida) throws Exception {
+    // Crear un archivo de salida
+    BufferedOutputStream bis = new BufferedOutputStream(new FileOutputStream(archivoSalida));
 
-        for (int i = 0; i < alto; i++) {
-            for (int j = 0; j < nuevoAncho; j++) {
-                nuevoRojo[i][j] = Rojo[i][j * 2];
-                nuevoVerde[i][j] = Verde[i][j * 2];
-                nuevoAzul[i][j] = Azul[i][j * 2];
-            }
+    // Ajustar el ancho en el header (posiciones 18-21 en el header BMP)
+    int nuevoAncho = ancho / 2;
+    escribirInt(header, nuevoAncho, 18);  // Actualizar el ancho en el header
+    bis.write(header); // Escribir el encabezado BMP actualizado
+
+    // Crear nuevos arreglos de píxeles
+    int[][] nuevoRojo = new int[alto][nuevoAncho];
+    int[][] nuevoVerde = new int[alto][nuevoAncho];
+    int[][] nuevoAzul = new int[alto][nuevoAncho];
+
+    // Relleno de bytes: el número de bytes por fila debe ser múltiplo de 4
+    int relleno = (4 - (nuevoAncho * 3) % 4) % 4;
+
+    // Llenar los nuevos arreglos y escribir al archivo
+    for (int i = 0; i < alto; i++) {
+        for (int j = 0; j < nuevoAncho; j++) {
+            nuevoRojo[i][j] = Rojo[i][j * 2];
+            nuevoVerde[i][j] = Verde[i][j * 2];
+            nuevoAzul[i][j] = Azul[i][j * 2];
+
+            // Escribir los valores de cada canal de color
+            bis.write(nuevoAzul[i][j]);   // Azul
+            bis.write(nuevoVerde[i][j]);  // Verde
+            bis.write(nuevoRojo[i][j]);   // Rojo
         }
-
-        this.ancho = nuevoAncho;
-        this.Rojo = nuevoRojo;
-        this.Verde = nuevoVerde;
-        this.Azul = nuevoAzul;
+        // Añadir relleno si es necesario
+        for (int k = 0; k < relleno; k++) {
+            bis.write(0); // Escribir bytes de relleno (0)
+        }
     }
 
+    // Cerrar el archivo de salida
+    bis.close();
+
+    // Actualizar las propiedades de la imagen
+    this.ancho = nuevoAncho;
+    this.Rojo = nuevoRojo;
+    this.Verde = nuevoVerde;
+    this.Azul = nuevoAzul;
+}
+
+
     // Método para reducir el alto de la imagen al 50%
-    public void reducirAlto() {
+    public void reducirAlto(String archivoSalida) throws Exception {
+        // Crear un archivo de salida
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(archivoSalida));
+    
+        // Ajustar el alto en el header (posiciones 22-25 en el header BMP)
         int nuevoAlto = alto / 2;
+        escribirInt(header, nuevoAlto, 22);  // Actualizar el alto en el header
+        bos.write(header); // Escribir el encabezado BMP actualizado
+    
+        // Crear nuevos arreglos de píxeles
         int[][] nuevoRojo = new int[nuevoAlto][ancho];
         int[][] nuevoVerde = new int[nuevoAlto][ancho];
         int[][] nuevoAzul = new int[nuevoAlto][ancho];
-
+    
+        // Calcular el relleno de bytes (debe alinear a múltiplos de 4 bytes por fila)
+        int relleno = (4 - (ancho * 3) % 4) % 4;
+    
+        // Llenar los nuevos arreglos y escribir al archivo
         for (int i = 0; i < nuevoAlto; i++) {
             for (int j = 0; j < ancho; j++) {
+                // Tomar cada segunda fila para reducir el alto
                 nuevoRojo[i][j] = Rojo[i * 2][j];
                 nuevoVerde[i][j] = Verde[i * 2][j];
                 nuevoAzul[i][j] = Azul[i * 2][j];
+    
+                // Escribir los valores de cada canal de color
+                bos.write(nuevoAzul[i][j]);   // Azul
+                bos.write(nuevoVerde[i][j]);  // Verde
+                bos.write(nuevoRojo[i][j]);   // Rojo
+            }
+            // Añadir relleno si es necesario
+            for (int k = 0; k < relleno; k++) {
+                bos.write(0); // Escribir bytes de relleno (0)
             }
         }
-
+    
+        // Cerrar el archivo de salida
+        bos.close();
+    
+        // Actualizar las propiedades de la imagen
         this.alto = nuevoAlto;
         this.Rojo = nuevoRojo;
         this.Verde = nuevoVerde;
         this.Azul = nuevoAzul;
     }
+    
+    // Método auxiliar para escribir enteros en el header BMP
+    private void escribirInt(byte[] header, int valor, int offset) {
+        header[offset] = (byte) (valor & 0xFF);
+        header[offset + 1] = (byte) ((valor >> 8) & 0xFF);
+        header[offset + 2] = (byte) ((valor >> 16) & 0xFF);
+        header[offset + 3] = (byte) ((valor >> 24) & 0xFF);
+    }
+    
 }
