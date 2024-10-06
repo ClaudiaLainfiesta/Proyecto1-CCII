@@ -58,8 +58,8 @@ public class BmpHandlerRotator {
                ((data[offset + 3] & 0xFF) << 24);
     }
 
-    // Método para escribir la imagen con un giro de 180 grados (ambos ejes).
-    public void rotate180AndSave(String archivoSalida) throws Exception {
+    // Método para escribir la imagen con un giro de 180 grados (eje vertical).
+    public void rotateVertical(String archivoSalida) throws Exception {
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(archivoSalida));
         bos.write(header); // Escribir el encabezado BMP.
 
@@ -74,8 +74,8 @@ public class BmpHandlerRotator {
         bos.close(); // Cerrar el archivo de salida.
     }
 
-    // Método (2) Rotar 180 grados sobre el eje vertical (invertir columnas)
-    public void rotateVerticalAndSave(String archivoSalida) throws Exception {
+    // Método (2) Rotar 180 grados sobre el eje horizontal (invertir columnas)
+    public void rotateHorizontal(String archivoSalida) throws Exception {
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(archivoSalida));
         bos.write(header); // Escribir el encabezado BMP.
 

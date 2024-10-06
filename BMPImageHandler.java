@@ -30,9 +30,9 @@ public class BMPImageHandler {
                     BmpHandlerRotator handlerRotator = new BmpHandlerRotator(archivo);
                     // Manda a llamar los métodos para crear las imágenes correspondientes.
                     // Rotación en eje horizontal
-                    handlerRotator.rotate180AndSave(nuevoNombre + "-hrotation.bmp");
+                    handlerRotator.rotateVertical(nuevoNombre + "-vrotation.bmp");
                     // Rotación en eje vertical
-                    handlerRotator.rotateVerticalAndSave(nuevoNombre + "-vrotation.bmp");
+                    handlerRotator.rotateHorizontal(nuevoNombre + "-hrotation.bmp");
                     // Mensaje en terminal.
                     System.out.println("Imágenes rotadas generadas correctamente.");
                 } else if (comando.equals("-resize")) {
@@ -47,16 +47,17 @@ public class BMPImageHandler {
                     // Crea objetos en BmpHandlerCore, BmpHandlerRotator y BmpHandlerResizer.
                     BmpHandlerCore handlerCore = new BmpHandlerCore(archivo);
                     BmpHandlerRotator handlerRotator = new BmpHandlerRotator(archivo);
-                    // BmpHandlerResizer handlerResizer = new BmpHandlerResizer(archivo);
+                    BmpHandlerResizer handlerResizer = new BmpHandlerResizer(archivo);
                     // Crea todas las imágenes correspondientes.
                     handlerCore.RedImage(nuevoNombre + "-red.bmp");
                     handlerCore.GreenImage(nuevoNombre + "-green.bmp");
                     handlerCore.BlueImage(nuevoNombre + "-blue.bmp");
                     handlerCore.SepiaImage(nuevoNombre + "-sepia.bmp");
 
-                    handlerRotator.rotate180AndSave(nuevoNombre + "-rotator.bmp");
-                    handlerRotator.rotateVerticalAndSave(nuevoNombre + "-vrotation.bmp");
-                    // handlerResizer.
+                    handlerRotator.rotateVertical(nuevoNombre + "-vrotation.bmp");
+                    handlerRotator.rotateHorizontal(nuevoNombre + "-hrotation.bmp");
+                    handlerResizer.reducirAlto(nuevoNombre + "-flat.bmp");
+                    handlerResizer.reducirAncho(nuevoNombre + "-thin.bmp");
 
                     System.out.println("Imágenes generadas correctamente.");
                 } else if (comando.equals("-gray")) {
