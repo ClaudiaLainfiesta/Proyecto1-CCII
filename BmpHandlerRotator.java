@@ -5,7 +5,7 @@
 import java.io.*;
 
 public class BmpHandlerRotator {
-    // Campos a inicializar en el constructor.
+    //Campos a inicializar en el constructor.
     private int ancho;
     private int alto;
     private byte[] header = new byte[54];
@@ -13,7 +13,7 @@ public class BmpHandlerRotator {
     private int[][] Verde;
     private int[][] Azul;
 
-    // Constructor de la clase.
+    //Constructor de la clase.
     public BmpHandlerRotator(String archivo) throws Exception {
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(archivo));
         bis.read(header);
@@ -23,10 +23,11 @@ public class BmpHandlerRotator {
         this.Verde = new int[this.alto][this.ancho];
         this.Azul = new int[this.alto][this.ancho];
         readBmp(bis);
-        bis.close(); // Cerrar el archivo de entrada.
+        //Cerrar el archivo de entrada.
+        bis.close();
     }
 
-    // Lectura de los píxeles de la imagen.
+    //Lectura de los píxeles de la imagen.
     private void readBmp(BufferedInputStream archivo) throws Exception {
         for (int i = alto - 1; i >= 0; i--) {
             for (int j = 0; j < ancho; j++) {
@@ -41,12 +42,12 @@ public class BmpHandlerRotator {
         }
     }
 
-    // Lectura del ancho de la imagen desde el encabezado.
+    //Lectura del ancho de la imagen desde el encabezado.
     private int readAncho() {
         return getInt(header, 18);
     }
 
-    // Lectura del alto de la imagen desde el encabezado.
+    //Lectura del alto de la imagen desde el encabezado.
     private int readAlto() {
         return getInt(header, 22);
     }
@@ -58,12 +59,12 @@ public class BmpHandlerRotator {
                ((data[offset + 3] & 0xFF) << 24);
     }
 
-    // Método para escribir la imagen con un giro de 180 grados (eje vertical).
+    //Método para escribir la imagen con un giro de 180 grados (eje vertical).
     public void rotateVertical(String archivoSalida) throws Exception {
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(archivoSalida));
         bos.write(header); // Escribir el encabezado BMP.
 
-        // Escribir los píxeles en orden invertido tanto en filas como en columnas.
+        //Escribir los píxeles en orden invertido tanto en filas como en columnas.
         for (int i = 0; i < alto; i++) {
             for (int j = ancho - 1; j >= 0; j--) {
                 bos.write(Azul[alto - 1 - i][j]);
@@ -71,15 +72,15 @@ public class BmpHandlerRotator {
                 bos.write(Rojo[alto - 1 - i][j]);
             }
         }
-        bos.close(); // Cerrar el archivo de salida.
+        bos.close();
     }
 
-    // Método (2) Rotar 180 grados sobre el eje horizontal (invertir columnas)
+    //Método (2) Rotar 180 grados sobre el eje horizontal (invertir columnas).
     public void rotateHorizontal(String archivoSalida) throws Exception {
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(archivoSalida));
-        bos.write(header); // Escribir el encabezado BMP.
-
-        // Recorre las filas, pero invierte las columnas (espejo en el eje Y).
+        //Escribir el encabezado BMP.
+        bos.write(header);
+        //Recorre las filas, pero invierte las columnas (espejo en el eje Y).
         for (int i = 0; i < alto; i++) {
             for (int j = ancho - 1; j >= 0; j--) {
                 bos.write(Azul[i][j]);
@@ -87,8 +88,7 @@ public class BmpHandlerRotator {
                 bos.write(Rojo[i][j]);
             }
         }
-
-        bos.close(); // Cerrar el archivo de salida.
+        bos.close();
     }
 
 }

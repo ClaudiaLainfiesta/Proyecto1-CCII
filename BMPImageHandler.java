@@ -5,50 +5,50 @@
 public class BMPImageHandler {
     public static void main(String[] args) throws Exception {
         try {
-            // Separa el comando y la bandera del comando.
+            //Separa el comando y la bandera del comando.
             String comando = args[0];
             String bandera = comando.substring(0, 1);
-            // Valida que la bandera sea "-".
+            //Valida que la bandera sea "-".
             if (bandera.equals("-") && args.length == 2) {
-                // Separa el nombre del archivo.
+                //Separa el nombre del archivo.
                 String archivo = args[1];
-                // Modifica el nombre del archivo para futuro cambio de este mismo.
+                //Modifica el nombre del archivo para futuro cambio de este mismo.
                 String nuevoNombre = archivo.replace(".bmp", "");
 
                 if (comando.equals("-core")) {
-                    // Crea objeto en BmpHandlerCore.
+                    //Crea objeto en BmpHandlerCore.
                     BmpHandlerCore handlerCore = new BmpHandlerCore(archivo);
-                    // Manda a llamar los métodos para crear las imágenes correspondientes.
+                    //Manda a llamar los métodos para crear las imágenes correspondientes.
                     handlerCore.RedImage(nuevoNombre + "-red.bmp");
                     handlerCore.GreenImage(nuevoNombre + "-green.bmp");
                     handlerCore.BlueImage(nuevoNombre + "-blue.bmp");
                     handlerCore.SepiaImage(nuevoNombre + "-sepia.bmp");
-                    // Mensaje en terminal.
+                    //Mensaje en terminal.
                     System.out.println("Imágenes generadas correctamente.");
                 } else if (comando.equals("-rotate")) {
-                    // Crea objeto en BmpHandlerRotator.
+                    //Crea objeto en BmpHandlerRotator.
                     BmpHandlerRotator handlerRotator = new BmpHandlerRotator(archivo);
-                    // Manda a llamar los métodos para crear las imágenes correspondientes.
-                    // Rotación en eje horizontal
+                    //Manda a llamar los métodos para crear las imágenes correspondientes.
+                    //Rotación en eje horizontal
                     handlerRotator.rotateVertical(nuevoNombre + "-vrotation.bmp");
-                    // Rotación en eje vertical
+                    //Rotación en eje vertical
                     handlerRotator.rotateHorizontal(nuevoNombre + "-hrotation.bmp");
-                    // Mensaje en terminal.
+                    //Mensaje en terminal.
                     System.out.println("Imágenes rotadas generadas correctamente.");
                 } else if (comando.equals("-resize")) {
-                    // Crea objeto en BmpHandlerResizer.
+                    //Crea objeto en BmpHandlerResizer.
                     BmpHandlerResizer handlerResizer = new BmpHandlerResizer(archivo);
-                    // Manda a llamar los métodos para crear las imágenes correspondientes.
+                    //Manda a llamar los métodos para crear las imágenes correspondientes.
                     handlerResizer.reducirAlto(nuevoNombre + "-flat.bmp");
                     handlerResizer.reducirAncho(nuevoNombre + "-thin.bmp");
-                    // Mensaje en terminal.
+                    //Mensaje en terminal.
                     System.out.println("Imagen generada correctamente.");
                 } else if (comando.equals("-all")) {
-                    // Crea objetos en BmpHandlerCore, BmpHandlerRotator y BmpHandlerResizer.
+                    //Crea objetos en BmpHandlerCore, BmpHandlerRotator y BmpHandlerResizer.
                     BmpHandlerCore handlerCore = new BmpHandlerCore(archivo);
                     BmpHandlerRotator handlerRotator = new BmpHandlerRotator(archivo);
                     BmpHandlerResizer handlerResizer = new BmpHandlerResizer(archivo);
-                    // Crea todas las imágenes correspondientes.
+                    //Crea todas las imágenes correspondientes.
                     handlerCore.RedImage(nuevoNombre + "-red.bmp");
                     handlerCore.GreenImage(nuevoNombre + "-green.bmp");
                     handlerCore.BlueImage(nuevoNombre + "-blue.bmp");
@@ -61,18 +61,18 @@ public class BMPImageHandler {
 
                     System.out.println("Imágenes generadas correctamente.");
                 } else if (comando.equals("-gray")) {
-                    // Crea objeto en BmpHandlerCore.
+                    //Crea objeto en BmpHandlerCore.
                     BmpHandlerCore handlergray = new BmpHandlerCore(archivo);
-                    // Manda a llamar el método para crear la imagen correspondiente.
+                    //Manda a llamar el método para crear la imagen correspondiente.
                     handlergray.GrayImage(nuevoNombre + "-gray.bmp");
-                    // Mensaje en terminal.
+                    //Mensaje en terminal.
                     System.out.println("Imagen generada correctamente.");
                 } else {
                     System.out.println("Comando no válido. Utilice -help para más información.");
                 }
             } else if (bandera.equals("-") && args.length == 1) {
                 if (comando.equals("-help")) {
-                    // Mensajes en terminal de todos los comandos.
+                    //Mensajes en terminal de todos los comandos.
                     System.out.println("Comandos disponibles: ");
                     System.out.println("  -core: Genera imágenes en escala de sepia, rojo, verde y azul.");
                     System.out.println(
