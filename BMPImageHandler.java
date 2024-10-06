@@ -1,4 +1,4 @@
-//Proyecto No. 1 - Grupo No.   | Clase Principal.
+//Proyecto No. 1 - Grupo No.6BN | Clase Principal.
 //Adriel Levi Argueta Caal | 24003171 - BN.
 //Maria Claudia Lainfiesta Herrera | 24000149 - BN.
 
